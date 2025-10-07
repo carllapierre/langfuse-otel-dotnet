@@ -1,4 +1,4 @@
-# langfuse-otel-dotnet
+# .NET Langfuse OTEL Exporter
 
 Export .NET OpenTelemetry traces to Langfuse with one line of code.
 
