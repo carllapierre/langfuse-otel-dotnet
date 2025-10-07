@@ -1,0 +1,33 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8F5C7E1A-1B2C-4D3E-9F0A-1B2C3D4E5F6A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{9F6D8E2B-2C3D-4E4F-A01B-2C3D4E5F6A7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Langfuse.OpenTelemetry", "src\Langfuse.OpenTelemetry\Langfuse.OpenTelemetry.csproj", "{1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernel.Sample", "samples\SemanticKernel.Sample\SemanticKernel.Sample.csproj", "{2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D} = {8F5C7E1A-1B2C-4D3E-9F0A-1B2C3D4E5F6A}
+		{2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E} = {9F6D8E2B-2C3D-4E4F-A01B-2C3D4E5F6A7B}
+	EndGlobalSection
+EndGlobal
+
