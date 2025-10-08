@@ -44,6 +44,51 @@ var kernel = Kernel.CreateBuilder()
 var result = await kernel.InvokePromptAsync("Hello!");
 ```
 
+## Configuration
+
+### Option 1: Environment Variables (Recommended)
+
+Set these environment variables and call `.AddLangfuseExporter()` with no parameters:
+```bash
+LANGFUSE_PUBLIC_KEY=pk-lf-...
+LANGFUSE_SECRET_KEY=sk-lf-...
+LANGFUSE_BASE_URL=https://cloud.langfuse.com
+```
+
+### Option 2: Manual Configuration
+
+Pass configuration directly to the exporter:
+```csharp
+using var tracerProvider = Sdk.CreateTracerProviderBuilder()
+    .AddSource("Microsoft.SemanticKernel*")
+    .AddLangfuseExporter(options =>
+    {
+        options.PublicKey = "pk-lf-...";
+        options.SecretKey = "sk-lf-...";
+        options.BaseUrl = "https://cloud.langfuse.com";
+    })
+    .Build();
+```
+
+### Option 3: IConfiguration
+
+Load from `appsettings.json` or other configuration sources:
+```csharp
+// In appsettings.json:
+// {
+//   "Langfuse": {
+//     "PublicKey": "pk-lf-...",
+//     "SecretKey": "sk-lf-...",
+//     "BaseUrl": "https://cloud.langfuse.com"
+//   }
+// }
+
+using var tracerProvider = Sdk.CreateTracerProviderBuilder()
+    .AddSource("Microsoft.SemanticKernel*")
+    .AddLangfuseExporter(configuration.GetSection("Langfuse"))
+    .Build();
+```
+
 ## Test
 
 ```bash
