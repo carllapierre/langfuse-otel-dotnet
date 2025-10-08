@@ -22,3 +22,8 @@ Nothing
 - Full support for Semantic Kernel GenAI instrumentation
 - Sample application demonstrating Semantic Kernel integration
 
+## [1.0.0] - 2025-10-07
+
+### Added
+- Better documentation
+- Official release version 1.0.0
