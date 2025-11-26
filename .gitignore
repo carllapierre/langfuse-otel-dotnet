@@ -68,6 +68,7 @@ artifacts/
 .env.local
 appsettings.local.json
 **/appsettings.Development.json
+**/Properties/launchSettings.json
 
 # User secrets
 secrets.json
