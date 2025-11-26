@@ -66,6 +66,7 @@ artifacts/
 # Environment variables
 .env
 .env.local
+!.env.example
 appsettings.local.json
 **/appsettings.Development.json
 **/Properties/launchSettings.json

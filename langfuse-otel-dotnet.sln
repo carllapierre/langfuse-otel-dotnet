@@ -2,20 +2,49 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+
+# Solution Folders
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8F5C7E1A-1B2C-4D3E-9F0A-1B2C3D4E5F6A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{9F6D8E2B-2C3D-4E4F-A01B-2C3D4E5F6A7B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A1B2C3D4-E5F6-7A8B-9C0D-1E2F3A4B5C6D}"
+EndProject
+
+# Source Projects
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Langfuse.Core", "src\Langfuse.Core\Langfuse.Core.csproj", "{3A4B5C6D-7E8F-9A0B-1C2D-3E4F5A6B7C8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Langfuse.Client", "src\Langfuse.Client\Langfuse.Client.csproj", "{4B5C6D7E-8F9A-0B1C-2D3E-4F5A6B7C8D9E}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Langfuse.OpenTelemetry", "src\Langfuse.OpenTelemetry\Langfuse.OpenTelemetry.csproj", "{1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D}"
 EndProject
+
+# Sample Projects
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernel.Sample", "samples\SemanticKernel.Sample\SemanticKernel.Sample.csproj", "{2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E}"
 EndProject
+
+# Test Projects
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Langfuse.Core.Tests", "tests\Langfuse.Core.Tests\Langfuse.Core.Tests.csproj", "{5C6D7E8F-9A0B-1C2D-3E4F-5A6B7C8D9E0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Langfuse.Client.Tests", "tests\Langfuse.Client.Tests\Langfuse.Client.Tests.csproj", "{6D7E8F9A-0B1C-2D3E-4F5A-6B7C8D9E0F1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Langfuse.IntegrationTests", "tests\Langfuse.IntegrationTests\Langfuse.IntegrationTests.csproj", "{7E8F9A0B-1C2D-3E4F-5A6B-7C8D9E0F1A2B}"
+EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A4B5C6D-7E8F-9A0B-1C2D-3E4F5A6B7C8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A4B5C6D-7E8F-9A0B-1C2D-3E4F5A6B7C8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A4B5C6D-7E8F-9A0B-1C2D-3E4F5A6B7C8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A4B5C6D-7E8F-9A0B-1C2D-3E4F5A6B7C8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B5C6D7E-8F9A-0B1C-2D3E-4F5A6B7C8D9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B5C6D7E-8F9A-0B1C-2D3E-4F5A6B7C8D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B5C6D7E-8F9A-0B1C-2D3E-4F5A6B7C8D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B5C6D7E-8F9A-0B1C-2D3E-4F5A6B7C8D9E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -24,10 +53,26 @@ Global
 		{2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C6D7E8F-9A0B-1C2D-3E4F-5A6B7C8D9E0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C6D7E8F-9A0B-1C2D-3E4F-5A6B7C8D9E0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C6D7E8F-9A0B-1C2D-3E4F-5A6B7C8D9E0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C6D7E8F-9A0B-1C2D-3E4F-5A6B7C8D9E0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D7E8F9A-0B1C-2D3E-4F5A-6B7C8D9E0F1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D7E8F9A-0B1C-2D3E-4F5A-6B7C8D9E0F1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D7E8F9A-0B1C-2D3E-4F5A-6B7C8D9E0F1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D7E8F9A-0B1C-2D3E-4F5A-6B7C8D9E0F1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E8F9A0B-1C2D-3E4F-5A6B-7C8D9E0F1A2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E8F9A0B-1C2D-3E4F-5A6B-7C8D9E0F1A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E8F9A0B-1C2D-3E4F-5A6B-7C8D9E0F1A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E8F9A0B-1C2D-3E4F-5A6B-7C8D9E0F1A2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{3A4B5C6D-7E8F-9A0B-1C2D-3E4F5A6B7C8D} = {8F5C7E1A-1B2C-4D3E-9F0A-1B2C3D4E5F6A}
+		{4B5C6D7E-8F9A-0B1C-2D3E-4F5A6B7C8D9E} = {8F5C7E1A-1B2C-4D3E-9F0A-1B2C3D4E5F6A}
 		{1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D} = {8F5C7E1A-1B2C-4D3E-9F0A-1B2C3D4E5F6A}
 		{2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E} = {9F6D8E2B-2C3D-4E4F-A01B-2C3D4E5F6A7B}
+		{5C6D7E8F-9A0B-1C2D-3E4F-5A6B7C8D9E0F} = {A1B2C3D4-E5F6-7A8B-9C0D-1E2F3A4B5C6D}
+		{6D7E8F9A-0B1C-2D3E-4F5A-6B7C8D9E0F1A} = {A1B2C3D4-E5F6-7A8B-9C0D-1E2F3A4B5C6D}
+		{7E8F9A0B-1C2D-3E4F-5A6B-7C8D9E0F1A2B} = {A1B2C3D4-E5F6-7A8B-9C0D-1E2F3A4B5C6D}
 	EndGlobalSection
 EndGlobal
-

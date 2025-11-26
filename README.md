@@ -1,12 +1,26 @@
-# .NET Langfuse OTEL Exporter
+# Langfuse .NET SDK (Unofficial)
 
-[![NuGet](https://img.shields.io/nuget/v/Langfuse.OpenTelemetry.svg)](https://www.nuget.org/packages/Langfuse.OpenTelemetry/)
+[![Langfuse.OpenTelemetry](https://img.shields.io/nuget/v/Langfuse.OpenTelemetry.svg?label=Langfuse.OpenTelemetry)](https://www.nuget.org/packages/Langfuse.OpenTelemetry/)
+[![Langfuse.Client](https://img.shields.io/nuget/v/Langfuse.Client.svg?label=Langfuse.Client)](https://www.nuget.org/packages/Langfuse.Client/)
 [![Build](https://github.com/carllapierre/langfuse-otel-dotnet/actions/workflows/build.yml/badge.svg)](https://github.com/carllapierre/langfuse-otel-dotnet/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Export .NET OpenTelemetry traces to Langfuse with one line of code. Agentic Frameworks like Semantic Kernel are instrumented to emit OpenTelemetry and this library aims to collect OTEL data and export it to LangFuse's OTEL endpoints. 
+Unofficial .NET SDK for [Langfuse](https://langfuse.com) - the open-source LLM engineering platform.
 
-## Quick Start
+## Packages
+
+| Package | Description | Install |
+|---------|-------------|---------|
+| **Langfuse.OpenTelemetry** | Export OTEL traces to Langfuse | `dotnet add package Langfuse.OpenTelemetry` |
+| **Langfuse.Client** | Prompt management with caching | `dotnet add package Langfuse.Client` |
+
+---
+
+## Langfuse.OpenTelemetry
+
+Export .NET OpenTelemetry traces to Langfuse. Works with any OTEL-instrumented library including Semantic Kernel.
+
+### Quick Start
 
 **1. Install**
 ```bash
@@ -17,7 +31,8 @@ dotnet add package Langfuse.OpenTelemetry
 ```bash
 LANGFUSE_PUBLIC_KEY=pk-lf-...
 LANGFUSE_SECRET_KEY=sk-lf-...
-LANGFUSE_BASE_URL=https://cloud.langfuse.com
+LANGFUSE_BASE_URL=https://cloud.langfuse.com  # EU region (default)
+# LANGFUSE_BASE_URL=https://us.cloud.langfuse.com  # US region
 ```
 
 **3. Add to your app**
@@ -30,7 +45,7 @@ using OpenTelemetry.Trace;
 // Enable GenAI diagnostics (prompts, tokens, completions)
 AppContext.SetSwitch("Microsoft.SemanticKernel.Experimental.GenAI.EnableOTelDiagnosticsSensitive", true);
 
-// Setup OpenTelemetry
+// Setup OpenTelemetry with Langfuse exporter
 using var tracerProvider = Sdk.CreateTracerProviderBuilder()
     .AddSource("Microsoft.SemanticKernel*")
     .AddLangfuseExporter()
@@ -44,72 +59,115 @@ var kernel = Kernel.CreateBuilder()
 var result = await kernel.InvokePromptAsync("Hello!");
 ```
 
-## Configuration
+### Configuration Options
 
-### Option 1: Environment Variables (Recommended)
+```csharp
+// Option 1: Environment variables (recommended)
+.AddLangfuseExporter()
 
-Set these environment variables and call `.AddLangfuseExporter()` with no parameters:
+// Option 2: Manual configuration
+.AddLangfuseExporter(options =>
+{
+    options.PublicKey = "pk-lf-...";
+    options.SecretKey = "sk-lf-...";
+    options.BaseUrl = "https://cloud.langfuse.com";
+})
+
+// Option 3: From IConfiguration (appsettings.json)
+.AddLangfuseExporter(configuration)
+```
+
+---
+
+## Langfuse.Client
+
+Access Langfuse features like Prompt Management directly from .NET with built-in caching.
+
+### Quick Start
+
+**1. Install**
+```bash
+dotnet add package Langfuse.Client
+```
+
+**2. Set environment variables**
 ```bash
 LANGFUSE_PUBLIC_KEY=pk-lf-...
 LANGFUSE_SECRET_KEY=sk-lf-...
 LANGFUSE_BASE_URL=https://cloud.langfuse.com
 ```
 
-### Option 2: Manual Configuration
-
-Pass configuration directly to the exporter:
+**3. Use prompts**
 ```csharp
-using var tracerProvider = Sdk.CreateTracerProviderBuilder()
-    .AddSource("Microsoft.SemanticKernel*")
-    .AddLangfuseExporter(options =>
-    {
-        options.PublicKey = "pk-lf-...";
-        options.SecretKey = "sk-lf-...";
-        options.BaseUrl = "https://cloud.langfuse.com";
-    })
-    .Build();
+using Langfuse.Client;
+
+var client = new LangfuseClient();
+
+// Fetch a text prompt (cached for 60s by default)
+var prompt = await client.GetPromptAsync("movie-critic");
+
+// Compile with variables
+var compiled = prompt.Compile(new Dictionary<string, string>
+{
+    ["criticlevel"] = "expert",
+    ["movie"] = "Dune 2"
+});
+// -> "As an expert movie critic, do you like Dune 2?"
+
+// Fetch a chat prompt
+var chatPrompt = await client.GetChatPromptAsync("movie-critic-chat");
+var messages = chatPrompt.Compile(("criticlevel", "expert"), ("movie", "Dune 2"));
+// -> [{ role: "system", content: "..." }, { role: "user", content: "..." }]
 ```
 
-### Option 3: IConfiguration
+### Features
 
-Load from `appsettings.json` or other configuration sources:
+- **Text & Chat prompts** - Full support for both prompt types
+- **Variable compilation** - `{{variable}}` syntax support
+- **Version/Label selection** - Fetch specific versions or labels (production, staging)
+- **Client-side caching** - 60s TTL by default, configurable
+- **Fallback prompts** - Graceful degradation when API fails
+- **Config access** - Access prompt config (model, temperature, etc.)
+
 ```csharp
-// In appsettings.json:
-// {
-//   "Langfuse": {
-//     "PublicKey": "pk-lf-...",
-//     "SecretKey": "sk-lf-...",
-//     "BaseUrl": "https://cloud.langfuse.com"
-//   }
-// }
+// Get specific version
+var v1 = await client.GetPromptAsync("my-prompt", version: 1);
 
-using var tracerProvider = Sdk.CreateTracerProviderBuilder()
-    .AddSource("Microsoft.SemanticKernel*")
-    .AddLangfuseExporter(configuration.GetSection("Langfuse"))
-    .Build();
+// Get by label
+var staging = await client.GetPromptAsync("my-prompt", label: "staging");
+
+// With fallback
+var fallback = TextPrompt.CreateFallback("default", "Fallback prompt text");
+var prompt = await client.GetPromptAsync("my-prompt", fallback: fallback);
+
+// Access config
+var model = prompt.GetConfigValue<string>("model");
+var temperature = prompt.GetConfigValue<double>("temperature", 0.7);
 ```
 
-## Test
+---
+
+## Documentation
+
+- [Testing Guide](docs/TESTING.md) - How to run tests
+- [Features](docs/FEATURES.md) - Implemented features with Langfuse docs links
+- [Contributing](CONTRIBUTING.md) - How to contribute
+
+## Running the Sample
 
 ```bash
 # Set environment variables
-$env:OPENAI_API_KEY="sk-..."
-$env:LANGFUSE_PUBLIC_KEY="pk-lf-..."
-$env:LANGFUSE_SECRET_KEY="sk-lf-..."
-$env:LANGFUSE_BASE_URL="https://cloud.langfuse.com"
+export OPENAI_API_KEY="sk-..."
+export LANGFUSE_PUBLIC_KEY="pk-lf-..."
+export LANGFUSE_SECRET_KEY="sk-lf-..."
+export LANGFUSE_BASE_URL="https://cloud.langfuse.com"
 
 # Run sample
 cd samples/SemanticKernel.Sample
 dotnet run
 ```
 
-Check your Langfuse dashboard to see the traces.
-
----
-
-## Contributing
-
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+Check your [Langfuse dashboard](https://cloud.langfuse.com) to see the traces.
 
 ## License
 
@@ -117,6 +175,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Links
 
-- [Langfuse OpenTelemetry Docs](https://langfuse.com/docs/opentelemetry)
-- [OpenTelemetry GenAI Conventions](https://github.com/open-telemetry/semantic-conventions/tree/main/docs/gen-ai)
-- [Semantic Kernel](https://github.com/microsoft/semantic-kernel)
+- [Langfuse](https://langfuse.com) - Open-source LLM engineering platform
+- [Langfuse Docs](https://langfuse.com/docs) - Official documentation
+- [OpenTelemetry Integration](https://langfuse.com/docs/integrations/otel) - OTEL docs
+- [Prompt Management](https://langfuse.com/docs/prompt-management/overview) - Prompts docs

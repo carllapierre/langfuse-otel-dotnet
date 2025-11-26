@@ -1,7 +1,5 @@
-using System;
 using Langfuse.OpenTelemetry.Internal;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Trace;
 
 namespace Langfuse.OpenTelemetry

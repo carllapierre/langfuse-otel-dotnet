@@ -16,7 +16,9 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: |
+          8.0.x
+          9.0.x
     
     - name: Restore dependencies
       run: dotnet restore
@@ -25,7 +27,9 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     
     - name: Pack
-      run: dotnet pack src/Langfuse.OpenTelemetry/Langfuse.OpenTelemetry.csproj --configuration Release --no-build --output ./artifacts
+      run: |
+        dotnet pack src/Langfuse.Client/Langfuse.Client.csproj --configuration Release --no-build --output ./artifacts
+        dotnet pack src/Langfuse.OpenTelemetry/Langfuse.OpenTelemetry.csproj --configuration Release --no-build --output ./artifacts
     
     - name: Push to NuGet
       run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
@@ -34,4 +38,3 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: ./artifacts/*.nupkg
-

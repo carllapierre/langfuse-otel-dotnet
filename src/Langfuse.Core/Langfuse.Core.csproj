@@ -5,21 +5,18 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <PackageId>Langfuse.OpenTelemetry</PackageId>
+    <PackageId>Langfuse.Core</PackageId>
     <Version>1.0.0</Version>
-    <Description>A bridge between .NET OpenTelemetry (OTEL) and Langfuse. Automatically exports OTEL traces to Langfuse with a single line of code.</Description>
+    <Description>Core library for Langfuse .NET SDK. Contains shared configuration, types, and utilities used by other Langfuse packages.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <RepositoryUrl>https://github.com/carllapierre/langfuse-otel-dotnet</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Langfuse.Core\Langfuse.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="OpenTelemetry" Version="1.9.0" />
-    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.9.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,3 +24,4 @@
   </ItemGroup>
 
 </Project>
+

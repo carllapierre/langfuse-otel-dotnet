@@ -9,6 +9,13 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/carllapierre/langfuse-otel-dotnet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>langfuse;opentelemetry;otel;observability;semantic-kernel;genai;tracing</PackageTags>
+    <PackageTags>langfuse;opentelemetry;otel;observability;semantic-kernel;genai;tracing;llm;prompts</PackageTags>
+    <PackageProjectUrl>https://github.com/carllapierre/langfuse-otel-dotnet</PackageProjectUrl>
+  </PropertyGroup>
+
+  <!-- Common package versions -->
+  <PropertyGroup>
+    <MicrosoftExtensionsVersion>8.0.0</MicrosoftExtensionsVersion>
+    <OpenTelemetryVersion>1.9.0</OpenTelemetryVersion>
   </PropertyGroup>
 </Project>
